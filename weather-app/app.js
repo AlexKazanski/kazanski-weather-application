@@ -15,11 +15,13 @@ yargs.command({
   },
 });
 
-geocode(yargs.parse().location, (error, data) => {
-  if (error) return console.log(error);
-  const { longitude, latitude, place_name } = data;
-  forecast(longitude, latitude, place_name, (error, forecastData) => {
+geocode(
+  yargs.parse().location,
+  (error, { longitude, latitude, place_name } = {}) => {
     if (error) return console.log(error);
-    console.log(forecastData);
-  });
-});
+    forecast(longitude, latitude, place_name, (error, forecastData) => {
+      if (error) return console.log(error);
+      console.log(forecastData);
+    });
+  }
+);

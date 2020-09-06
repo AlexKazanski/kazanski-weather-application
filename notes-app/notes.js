@@ -16,7 +16,7 @@ const addNote = (title, note) => {
 
 const saveNotes = (notes) => {
   const dataJSON = JSON.stringify(notes);
-  fs.writeFileSync("notes.json", dataJsON, { flag: "w" });
+  fs.writeFileSync("notes.json", dataJSON, { flag: "w" });
   console.log(chalk.green("Note added!"));
 };
 
@@ -54,8 +54,8 @@ const loadNotes = () => {
 };
 
 module.exports = {
-  addNote: addNote,
-  removeNote: removeNote,
-  readNote: readNote,
-  listNotes: listNotes,
+  addNote,
+  removeNote,
+  readNote,
+  listNotes,
 };
