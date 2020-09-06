@@ -1,6 +1,5 @@
 const fs = require("fs");
 const chalk = require("chalk");
-const yargs = require("yargs");
 
 const addNote = (title, note) => {
   const notes = loadNotes();
@@ -16,8 +15,8 @@ const addNote = (title, note) => {
 };
 
 const saveNotes = (notes) => {
-  const stringNote = JSON.stringify(notes);
-  fs.writeFileSync("notes.json", stringNote, { flag: "w" });
+  const dataJSON = JSON.stringify(notes);
+  fs.writeFileSync("notes.json", dataJsON, { flag: "w" });
   console.log(chalk.green("Note added!"));
 };
 
