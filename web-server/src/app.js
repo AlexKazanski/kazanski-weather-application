@@ -1,39 +1,51 @@
-const path = require("path");
-const express = require("express");
-const hbs = require("hbs");
-const header = require("./templates/partials/header.hbs");
-const footer = require("./templates/partials/footer.hbs");
+const path = require('path')
+const express = require('express')
+const hbs = require('hbs')
 
-const app = express();
-const joinpath = (l) => path.join(__dirname, l);
+const app = express()
 
-hbs.registerPartials(joinpath("./templates/views/partials"));
-hbs.registerPartial("header", header);
-hbs.registerPartial("footer", footer);
+// Define paths for Express config
+const publicDirectoryPath = path.join(__dirname, '../public')
+const viewsPath = path.join(__dirname, '../templates/views')
+const partialsPath = path.join(__dirname, '../templates/partials')
 
-app.set("view engine", "hbs");
-app.set("views", joinpath("./templates/views"));
-app.use(express.static(joinpath("../public")));
+// Setup handlebars engine and views location
+app.set('view engine', 'hbs')
+app.set('views', viewsPath)
+hbs.registerPartials(partialsPath)
 
-app.get("", (req, res) => {
-  res.render("index", { name: "Alexander", title: "Weather" });
-});
+// Setup static directory to serve
+app.use(express.static(publicDirectoryPath))
 
-app.get("/help", (req, res) => {
-  res.render("help", { info: "You are on the help page!", title: "Help" });
-});
+app.get('', (req, res) => {
+    res.render('index', {
+        title: 'Weather',
+        name: 'Alex Kazanski'
+    })
+})
 
-app.get("/about", (req, res) => {
-  res.render("about", { name: "Alexander", title: "About" });
-});
+app.get('/about', (req, res) => {
+    res.render('about', {
+        title: 'About Me',
+        name: 'Alex Kazanski'
+    })
+})
 
-app.get("/weather", (req, res) => {
-  res.send({
-    forecast: "It is sunny",
-    location: "Tampa",
-  });
-});
+app.get('/help', (req, res) => {
+    res.render('help', {
+        helpText: 'This is some helpful text.',
+        title: 'Help',
+        name: 'Alex Kazanski'
+    })
+})
+
+app.get('/weather', (req, res) => {
+    res.send({
+        forecast: 'It is snowing',
+        location: 'Philadelphia'
+    })
+})
 
 app.listen(3000, () => {
-  console.log("Server running on http://127.0.0.1:3000");
-});
+    console.log('Server is up on port 3000.')
+})
