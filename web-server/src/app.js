@@ -1,6 +1,8 @@
 const path = require("path");
 const express = require("express");
 const hbs = require("hbs");
+const geocode = require("./utils/geocode.js");
+const forecast = require("./utils/forecast.js");
 
 const app = express();
 
@@ -39,19 +41,47 @@ app.get("/help", (req, res) => {
   });
 });
 
-app.get("/weather", (req, res) => {
+app.get("/weather", ({ query: { address } }, res) => {
+  if (!address) {
+    return res.send({
+      error: "You must provide an address.",
+    });
+  }
+  geocode(address, (error, { longitude, latitude, place_name } = {}) => {
+    if (error) return res.send({ error });
+    forecast(longitude, latitude, address, (error, data) => {
+      if (error) return res.send({ error: data });
+      return res.send({
+        forecast: data,
+        location: place_name,
+      });
+    });
+  });
+});
+
+app.get("/products", ({ query: { search } }, res) => {
+  if (!search) {
+    return res.send({
+      error: "You must provide a search term.",
+    });
+  }
   res.send({
-    forecast: "It is snowing",
-    location: "Philadelphia",
+    products: [],
   });
 });
 
 app.get("/help/*", (req, res) => {
-  res.render("404", { errorMessage: "Help article not found", name: "Alex Kazanski" });
+  res.render("404", {
+    errorMessage: "Help article not found.",
+    name: "Alex Kazanski",
+  });
 });
 
 app.get("*", (req, res) => {
-  res.render("404", { errorMessage: "Help page not found", name: "Alex Kazanski" });
+  res.render("404", {
+    errorMessage: "Help page not found.",
+    name: "Alex Kazanski",
+  });
 });
 
 app.listen(3000, () => {

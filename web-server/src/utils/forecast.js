@@ -15,14 +15,14 @@ const forecast = (
       if (error) {
         callback(error, "Unable to connect to location services!");
       } else if (bodyError) {
-        callback(bodyError, "Unable to find coordinates");
+        callback(bodyError, "Unable to find coordinates.");
       } else {
         const {
           current: { temperature, feelslike },
         } = body;
         callback(
           undefined,
-          `It is ${temperature}° in ${location}, but it feels like ${feelslike}°`
+          `It is ${temperature}° in ${location}, but it feels like ${feelslike}°.`
         );
       }
     }
