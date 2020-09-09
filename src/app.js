@@ -6,6 +6,7 @@ const forecast = require("./utils/forecast.js");
 
 const app = express();
 const port = process.env.PORT || 3000;
+const author = "Alex Kazanski";
 
 // Define paths for Express config
 const publicDirectoryPath = path.join(__dirname, "../public");
@@ -23,14 +24,14 @@ app.use(express.static(publicDirectoryPath));
 app.get("", (req, res) => {
   res.render("index", {
     title: "Weather",
-    name: "Alex Kazanski",
+    name: author,
   });
 });
 
 app.get("/about", (req, res) => {
   res.render("about", {
     title: "About Me",
-    name: "Alex Kazanski",
+    name: author,
   });
 });
 
@@ -38,7 +39,7 @@ app.get("/help", (req, res) => {
   res.render("help", {
     helpText: "This is some helpful text.",
     title: "Help",
-    name: "Alex Kazanski",
+    name: author,
   });
 });
 
@@ -74,14 +75,14 @@ app.get("/products", ({ query: { search } }, res) => {
 app.get("/help/*", (req, res) => {
   res.render("404", {
     errorMessage: "Help article not found.",
-    name: "Alex Kazanski",
+    name: author,
   });
 });
 
 app.get("*", (req, res) => {
   res.render("404", {
     errorMessage: "Help page not found.",
-    name: "Alex Kazanski",
+    name: author,
   });
 });
 

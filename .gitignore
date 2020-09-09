@@ -1,6 +1,2 @@
-/notes-app/node_modules
-/weather-app/node_modules
-/weather-app/settings.js
-/web-server/src/settings.js
-/playground/1-json.json
-/web-server/node_modules
+node_modules/
+src/settings.js
