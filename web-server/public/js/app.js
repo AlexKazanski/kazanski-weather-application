@@ -8,7 +8,7 @@ const hangman = () =>
   });
 
 const forecast = (location) =>
-  fetch(`http://127.0.0.1:3000/weather?address=${location}`).then(
+  fetch(`/weather?address=${location}`).then(
     (response) => {
       const data = response.json().then((data) => {
         if (data.error) return data; // seperated for error control flow
